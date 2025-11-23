@@ -5,16 +5,20 @@
 using namespace std;
 
 // Constructors
-Batiment::Batiment(int id, const string &nom, Ville *ville, TypeBatiment type,
+Batiment::Batiment(int id, Ville *ville, TypeBatiment type,
                    int effectSatisfication, double cost, unsigned int Employees,
                    unsigned int EmployeesNeeded, double consommationEau,
                    double consommationElectricite, float polution, int x, int y,
-                   int largeur, int longeur)
-    : id(id), nom(nom), ville(ville), type(type),
+                   int largeur, int longeur, const std::string& nom)
+    : id(id), 
+      nom(nom.empty() ? NameGenerator::getInstance().generateBuildingName(
+          static_cast<BuildingType>(type)) : nom), 
+      ville(ville), type(type),
       effectSatisfication(effectSatisfication), cost(cost),
       Employees(Employees), EmployeesNeeded(EmployeesNeeded),
-      consommation(consommationEau, consommationElectricite), position(x, y),
-      surface(largeur, longeur) {}
+      consommation(consommationEau, consommationElectricite), 
+      polution(polution), 
+      position(x, y), surface(largeur, longeur) {}
 
 Batiment::Batiment(int id, const string &nom, Ville *ville, TypeBatiment type,
                    int effectSatisfication, double cost, unsigned int Employees,
@@ -25,9 +29,9 @@ Batiment::Batiment(int id, const string &nom, Ville *ville, TypeBatiment type,
       effectSatisfication(effectSatisfication), cost(cost),
       Employees(Employees), EmployeesNeeded(EmployeesNeeded),
       consommation(consommationEau, consommationElectricite),
+      polution(polution),
       position(position), surface(surface) {}
 
-// methods
 void Batiment::afficheDetails() const {
   std::cout << "Batiment Info :" << endl;
   std::cout << "ID :\t" << id << endl;
@@ -37,6 +41,7 @@ void Batiment::afficheDetails() const {
   std::cout << "consommationEau  :\t" << consommation.eau << "Liter/s" << endl;
   std::cout << "consommationElectricite  :\t" << consommation.electricite
             << "Watt/s" << endl;
+  std::cout << "Polution :\t" << polution << endl;
   std::cout << "Position : (" << position.x << ", " << position.y << ")"
             << endl;
   std::cout << "Surface : (" << surface.largeur << ", " << surface.longeur
@@ -45,8 +50,9 @@ void Batiment::afficheDetails() const {
 
 int Batiment::calculerImpactRessources() { return 0; }
 
-// getters
+
 int Batiment::getID() { return id; }
 Resources Batiment::getConsummation() { return consommation; }
 int Batiment::getSatisfaction() { return effectSatisfication; }
 float Batiment::getPolution() { return polution; }
+
