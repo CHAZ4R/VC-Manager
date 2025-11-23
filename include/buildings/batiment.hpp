@@ -4,6 +4,7 @@
 #include "../utils.hpp"
 #include "../ville/ville.hpp"
 #include <string>
+#include "../utils/name_generator.hpp"
 
 using namespace std;
 
@@ -15,11 +16,12 @@ public:
   Ville *ville;
 
   // Constructors
-  Batiment(int id, const string &nom, Ville *ville, TypeBatiment type,
-           int effectSatisfication, double cost, unsigned int Employees,
-           unsigned int EmployeesNeeded, double consommationEau,
-           double consommationElectricite, float polution, int x, int y,
-           int largeur, int longeur);
+  Batiment(int id, Ville *ville, TypeBatiment type,
+         int effectSatisfication, double cost, unsigned int Employees,
+         unsigned int EmployeesNeeded, double consommationEau,
+         double consommationElectricite, float polution, int x, int y,
+         int largeur, int longeur,
+         const std::string& nom = "");
 
   Batiment(int id, const string &nom, Ville *ville, TypeBatiment type,
            int effectSatisfication, double cost, unsigned int Employees,
@@ -49,3 +51,4 @@ protected:
 };
 
 #endif // !BATIMENT
+
